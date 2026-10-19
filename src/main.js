@@ -1,4 +1,5 @@
 import Render from "./render"
+import Repository from "./repository"
 import ContactService from "./service"
 
 function init(){
@@ -7,9 +8,7 @@ function init(){
         window.alert("ROOT UNDEFINED!")
         return
     }
-
-    const service = new ContactService()
-    //TODO: Render should recive the service?
-    // root -> render <-> serivce 
-    const render = new Render()
+    const repository = new Repository()
+    const service = new ContactService(repository)
+    const render = new Render(root, service)
 }

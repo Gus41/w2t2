@@ -1,8 +1,9 @@
 export default class Render{
     
-    constructor(root){
+    constructor(root, service){
         //root should be an DOOM element
         this.root = root
+        this.service = service
     }
 
     renderList(){
