@@ -8,7 +8,7 @@ export default class ContactService{
         return this.contacts
     }
     load() {
-        this.contacts = await this.repository.getAll();
+        this.contacts = this.repository.getAll();
     }
 
     //TODO: throw errors instead of returning false

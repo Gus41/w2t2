@@ -1,6 +1,6 @@
-import Render from "./render"
-import Repository from "./repository"
-import ContactService from "./service"
+import Render from "./render.js"
+import Repository from "./repository.js"
+import ContactService from "./service.js"
 
 function init(){
     const root = document.getElementById("root")
@@ -12,3 +12,4 @@ function init(){
     const service = new ContactService(repository)
     const render = new Render(root, service)
 }
+init()
