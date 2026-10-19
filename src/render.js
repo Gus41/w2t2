@@ -8,12 +8,14 @@ export default class Render{
     createContainer(){
         const container = document.createElement("div")
         container.classList.add("container")
+       
         return container
     }
     renderList(){
         const contacts = this.service.getContacts()
 
         const table = document.createElement("table")
+        table.classList.add("mx-auto")
         const thead = document.createElement("thead")
         const tbody = document.createElement("tbody")
 
@@ -46,11 +48,13 @@ export default class Render{
             row.appendChild(telCell)
             const actionCell = document.createElement("td")
             const editButton = document.createElement("button")
+            editButton.classList.add("action-button")
             editButton.innerText = "Edit"
             editButton.addEventListener("click", () => {
                 this.renderForm(contact)
             })
             const deleteButton = document.createElement("button")
+            deleteButton.classList.add("action-button", "red")
             deleteButton.innerText = "Delete"
             deleteButton.addEventListener("click", () => {
                 this.service.deleteContact(contact.id)
@@ -70,6 +74,7 @@ export default class Render{
         addButton.addEventListener("click", () => {
             this.renderForm(null)
         })
+        addButton.classList.add("mx-auto","primary-button")
 
         const container = this.createContainer()
         container.appendChild(table)
@@ -100,6 +105,7 @@ export default class Render{
 
         form.addEventListener("submit", (event) => {
             event.preventDefault()
+            console.log("SUBMIT HANDLE")
             const newContact = {
                 id: contact ? contact.id : Date.now(),
                 name: nameInput.value,
@@ -109,6 +115,7 @@ export default class Render{
             if(contact){
                 this.service.updateContact(newContact)
             }else{
+                console.log("New contact")
                 this.service.newContact(newContact)
             }
             this.renderList()

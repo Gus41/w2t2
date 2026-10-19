@@ -25,6 +25,7 @@ export default class ContactService{
         if(contact.tel.length < 8 || contact.tel.length > 15){
             return false
         }
+        console.log("Valid contact")
         return true
     }
     
@@ -33,6 +34,7 @@ export default class ContactService{
             return false;
         }
         this.repository.add(contact);
+        console.log("Succes")
         this.load(); //---------------------------
         return true;
     }
