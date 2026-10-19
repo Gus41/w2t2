@@ -79,11 +79,45 @@ export default class Render{
      }
     renderForm(contact){
         //contact can bee null
+        const form = document.createElement("form")
+        const nameInput = document.createElement("input")
+        nameInput.placeholder = "Nome"
+        nameInput.value = contact ? contact.name : ""
+        const emailInput = document.createElement("input")
+        emailInput.placeholder = "E-mail"
+        emailInput.value = contact ? contact.email : ""
+        const telInput = document.createElement("input")
+        telInput.placeholder = "Telefone"
+        telInput.value = contact ? contact.tel : ""
+        const submitButton = document.createElement("button")
+        submitButton.type = "submit"
+        submitButton.innerText = contact ? "Update" : "Create"
 
-        if(contact){
-            //render a form to eidt the contatc
-            return
-        }
+        form.appendChild(nameInput)
+        form.appendChild(emailInput)
+        form.appendChild(telInput)
+        form.appendChild(submitButton)
+
+        form.addEventListener("submit", (event) => {
+            event.preventDefault()
+            const newContact = {
+                id: contact ? contact.id : Date.now(),
+                name: nameInput.value,
+                email: emailInput.value,
+                tel: telInput.value
+            }
+            if(contact){
+                this.service.updateContact(newContact)
+            }else{
+                this.service.newContact(newContact)
+            }
+            this.renderList()
+        })
+
+        const container = this.createContainer()
+        container.appendChild(form)
+
+        this.root.replaceChildren(container)
 
     }
 
