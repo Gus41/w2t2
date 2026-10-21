@@ -25,7 +25,6 @@ export default class ContactService{
         if(contact.tel.length < 8 || contact.tel.length > 15){
             return false
         }
-        console.log("Valid contact")
         return true
     }
     
@@ -34,8 +33,7 @@ export default class ContactService{
             return false;
         }
         this.repository.add(contact);
-        console.log("Succes")
-        this.load(); //---------------------------
+        this.load();
         return true;
     }
 
@@ -44,11 +42,22 @@ export default class ContactService{
             return false;
         }
         this.repository.update(contact);
-        this.load(); //---------------------------
+        this.load();
         return true;
     }
     deleteContact(id){
         this.repository.remove(id);
-        this.load(); //---------------------------
+        this.load();
+    }
+
+    toggleFavorite(id){
+        const contact = this.contacts.find(item => item.id === id);
+        if(!contact){
+            return false;
+        }
+
+        this.repository.update({ ...contact, favorite: !contact.favorite });
+        this.load();
+        return true;
     }
 }
